@@ -22,13 +22,88 @@ const KEY='seisan-note-v2',CATS=['食費','日用品','子ども','医療','交�
 try{let s=JSON.parse(localStorage.getItem(KEY));if(s&&Array.isArray(s.items))state={items:s.items,cats:s.cats||[...CATS]}}catch(e){}
 const q=s=>document.querySelector(s),yen=n=>'¥'+Math.round(+n||0).toLocaleString('ja-JP'),esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 function save(){localStorage.setItem(KEY,JSON.stringify(state))}
-function render(){let total=state.items.reduce((a,x)=>a+(+x.amount||0),0),done=state.items.filter(x=>x.type).length,pct=state.items.length?Math.round(done/state.items.length*100):0;q('#total').textContent=yen(total);q('#classified').textContent=`${done} / ${state.items.length}件`;q('#pct').textContent=pct+'%';q('#bar').style.width=pct+'%';let f=q('#filter').value,a=state.items.filter(x=>f==='all'||(f==='unclassified'&&!x.type)||x.type===f);q('#list').innerHTML=a.length?a.map(x=>`<div class="tx"><div class="tx-top"><div><div class="tx-name">${esc(x.name)}</div><div class="tx-date">${esc(x.date)}</div></div><div class="tx-amount">${yen(x.amount)}</div></div><div class="tx-actions"><button onclick="setType('${x.id}','mine')">わたし用${x.type==='mine'?' ✓':''}</button><button onclick="setType('${x.id}','home')">家に請求${x.type==='home'?' ✓':''}</button></div>${x.type==='home'?`<select onchange="setCat('${x.id}',this.value)" style="margin-top:7px"><option value="">カテゴリ未選択</option>${state.cats.map(c=>`<option ${x.cat===c?'selected':''}>${esc(c)}</option>`).join('')}</select>`:''}</div>`).join(''):'<div class="empty">表示する明細がありません</div>';q('#cats').innerHTML=state.cats.map(c=>`<span class="cat">${esc(c)} <button onclick="delCat('${encodeURIComponent(c)}')">×</button></span>`).join('')}
+function render(){let total=state.billTotal||state.items.reduce((a,x)=>a+(+x.amount||0),0),done=state.items.filter(x=>x.type).length,pct=state.items.length?Math.round(done/state.items.length*100):0;q('#total').textContent=yen(total);q('#classified').textContent=`${done} / ${state.items.length}件`;q('#pct').textContent=pct+'%';q('#bar').style.width=pct+'%';let f=q('#filter').value,a=state.items.filter(x=>f==='all'||(f==='unclassified'&&!x.type)||x.type===f);q('#list').innerHTML=a.length?a.map(x=>`<div class="tx"><div class="tx-top"><div><div class="tx-name">${esc(x.name)}</div><div class="tx-date">${esc(x.date)}</div></div><div class="tx-amount">${yen(x.amount)}</div></div><div class="tx-actions"><button onclick="setType('${x.id}','mine')">わたし用${x.type==='mine'?' ✓':''}</button><button onclick="setType('${x.id}','home')">家に請求${x.type==='home'?' ✓':''}</button></div>${x.type==='home'?`<select onchange="setCat('${x.id}',this.value)" style="margin-top:7px"><option value="">カテゴリ未選択</option>${state.cats.map(c=>`<option ${x.cat===c?'selected':''}>${esc(c)}</option>`).join('')}</select>`:''}</div>`).join(''):'<div class="empty">表示する明細がありません</div>';q('#cats').innerHTML=state.cats.map(c=>`<span class="cat">${esc(c)} <button onclick="delCat('${encodeURIComponent(c)}')">×</button></span>`).join('')}
 window.setType=(id,t)=>{let x=state.items.find(x=>x.id===id);if(x){x.type=x.type===t?'':t;if(t!=='home')x.cat='';save();render()}};window.setCat=(id,c)=>{let x=state.items.find(x=>x.id===id);if(x){x.cat=c;save()}};window.delCat=e=>{let c=decodeURIComponent(e);state.cats=state.cats.filter(x=>x!==c);save();render()};
 q('#addcat').onclick=()=>{let i=q('#newcat'),c=i.value.trim();if(c&&!state.cats.includes(c)){state.cats.push(c);i.value='';save();render()}};q('#filter').onchange=render;q('#save').onclick=()=>{save();alert('このiPhoneに保存しました♡')};q('#pdf').onclick=()=>window.print();q('#clear').onclick=()=>{if(confirm('明細を全部消す？')){state.items=[];save();render()}};
-const clean=s=>String(s||'').replace(/ /g,' ').replace(/[ 	]+/g,' ').trim();
-const dm=s=>{let m=String(s).match(/(?:(\d{4})[\/年.-])?(\d{1,2})[\/月.-](\d{1,2})日?/);return m?`${m[1]?m[1]+'/':''}${m[2]}/${m[3]}`:null};
-const nums=s=>[...String(s).matchAll(/(?:¥|￥)?\s*(-?[\d,]+)\s*円?/g)].map(m=>+m[1].replace(/,/g,'')).filter(Number.isFinite);
-function parse(lines){let out=[];for(let i=0;i<lines.length;i++){let line=clean(lines[i]),d=dm(line);if(!d)continue;let block=line;for(let j=1;j<=3&&i+j<lines.length;j++){let nx=clean(lines[i+j]);if(dm(nx))break;block+=' '+nx}let ns=nums(block);if(!ns.length)continue;let amount=ns[ns.length-1];if(!amount)continue;let name=block.replace(/(?:(\d{4})[\/年.-])?\d{1,2}[\/月.-]\d{1,2}日?/,' ').replace(/(?:¥|￥)?\s*-?[\d,]+\s*円?/g,' ').replace(/(?:1回|一括|分割|リボ)/g,' ').replace(/\s+/g,' ').trim();if(!name||/楽天カード|ご利用明細|合計|小計|カード番号/.test(name))name='利用明細';if(/取消|キャンセル/.test(block)&&amount>0)amount=-amount;out.push({id:crypto.randomUUID(),date:d,name,amount,type:'',cat:''})}return out}
-async function extract(file){let data=new Uint8Array(await file.arrayBuffer()),pdf=await pdfjsLib.getDocument({data}).promise,lines=[];for(let p=1;p<=pdf.numPages;p++){let page=await pdf.getPage(p),ct=await page.getTextContent(),g=new Map();for(let it of ct.items){if(!it.str)continue;let y=Math.round(it.transform[5]/2)*2;if(!g.has(y))g.set(y,[]);g.get(y).push({x:it.transform[4],s:it.str})}[...g.entries()].sort((a,b)=>b[0]-a[0]).forEach(([,parts])=>lines.push(parts.sort((a,b)=>a.x-b.x).map(x=>x.s).join(' ')))}return lines}
-q('#pdfFile').onchange=async e=>{let file=e.target.files[0];if(!file)return;try{let items=parse(await extract(file));if(!items.length){alert('明細を見つけられませんでした。');return}let old=state.items;for(let n of items){let p=old.find(x=>x.date===n.date&&x.name===n.name&&+x.amount===+n.amount);if(p){n.type=p.type||'';n.cat=p.cat||''}}state.items=items;save();render();alert(`${items.length}件読み込みました♡\n合計 ${yen(items.reduce((a,x)=>a+x.amount,0))}`)}catch(err){console.error(err);alert('PDFを読み込めませんでした。')}};render();
+const clean=s=>String(s||'').replace(/\u00a0/g,' ').replace(/[ \t]+/g,' ').trim();
+const dateRe=/^\d{4}\/\d{2}\/\d{2}$/;
+const money=s=>Number(String(s||'').replace(/[^\d-]/g,''))||0;
+
+async function extractRakuten(file){
+  const data=new Uint8Array(await file.arrayBuffer());
+  const pdf=await pdfjsLib.getDocument({data}).promise;
+  const items=[];
+  let billTotal=0;
+
+  for(let p=1;p<=pdf.numPages;p++){
+    const page=await pdf.getPage(p);
+    const ct=await page.getTextContent();
+    const all=ct.items.filter(it=>it.str&&it.str.trim())
+      .map(it=>({s:clean(it.str),x:it.transform[4],y:it.transform[5]}));
+    const pageText=all.map(x=>x.s).join(' ');
+
+    if(!billTotal){
+      const m=pageText.match(/ご請求金額[\s\S]{0,80}?([\d,]+)\s*円/);
+      if(m) billTotal=money(m[1]);
+      if(!billTotal){
+        const nums=all.filter(x=>x.x<180&&/^[\d,]+円?$/.test(x.s)).map(x=>money(x.s));
+        billTotal=nums.find(n=>n>10000)||0;
+      }
+    }
+
+    if(/ご利用キャンセル/.test(pageText)) break;
+
+    const rows=[];
+    for(const it of all){
+      let row=rows.find(r=>Math.abs(r.y-it.y)<2.2);
+      if(!row){row={y:it.y,cells:[]};rows.push(row)}
+      row.cells.push(it);
+    }
+    rows.sort((a,b)=>b.y-a.y);
+
+    for(const row of rows){
+      row.cells.sort((a,b)=>a.x-b.x);
+      const dcell=row.cells.find(c=>c.x<65&&dateRe.test(c.s));
+      if(!dcell) continue;
+
+      const name=row.cells.filter(c=>c.x>=60&&c.x<205)
+        .map(c=>c.s).join(' ').replace(/\s+/g,' ').trim();
+
+      const acell=row.cells.find(c=>c.x>=285&&c.x<350&&/^[\d,]+$/.test(c.s));
+      const amount=acell?money(acell.s):0;
+      if(!name||!amount) continue;
+
+      items.push({
+        id:(crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random()),
+        date:dcell.s,name,amount,type:'',cat:''
+      });
+    }
+  }
+  return {items,billTotal};
+}
+
+q('#pdfFile').onchange=async e=>{
+  const file=e.target.files[0];
+  if(!file)return;
+  try{
+    const result=await extractRakuten(file);
+    const items=result.items;
+    if(!items.length){alert('明細を見つけられませんでした。');return}
+
+    const old=state.items||[];
+    for(const n of items){
+      const p=old.find(x=>x.date===n.date&&x.name===n.name&&+x.amount===+n.amount);
+      if(p){n.type=p.type||'';n.cat=p.cat||''}
+    }
+
+    state.items=items;
+    state.billTotal=result.billTotal||0;
+    save();render();
+    alert(`${items.length}件読み込みました♡\n請求金額 ${yen(state.billTotal||items.reduce((a,x)=>a+x.amount,0))}`);
+  }catch(err){
+    console.error(err);
+    alert('PDFを読み込めませんでした。');
+  }
+};
+render();alert(`${items.length}件読み込みました♡\n合計 ${yen(items.reduce((a,x)=>a+x.amount,0))}`)}catch(err){console.error(err);alert('PDFを読み込めませんでした。')}};render();
 </script></body></html>
