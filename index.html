@@ -1,194 +1,34 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f7f3ec">
-<title>精算ノート♡</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7f3ec"><title>精算ノート♡</title>
 <style>
-:root{--ivory:#f7f3ec;--paper:#fffdfa;--greige:#ddd5ca;--ink:#514b45;--muted:#8c837a;--blue:#9fdde3;--blue2:#dff3f3;--pink:#efb8c0;--shadow:0 8px 24px rgba(83,75,66,.08)}
-*{box-sizing:border-box}body{margin:0;background:var(--ivory);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif}
-.app{max-width:720px;margin:auto;padding:18px 14px 110px}.top{text-align:center;padding:8px 4px 14px}.top h1{font-size:25px;margin:0}.top p{margin:5px 0 0;color:var(--muted);font-size:13px}
-.card{background:var(--paper);border:1px solid var(--greige);border-radius:20px;padding:16px;margin-bottom:13px;box-shadow:var(--shadow)}
-.hero{position:relative;overflow:hidden;min-height:168px}.hero-copy{padding-right:126px}.label{font-size:13px;color:var(--muted)}.big{font-size:34px;font-weight:800;margin-top:3px}
-.bear-wrap{position:absolute;right:14px;top:12px;width:112px;height:88px;display:flex;align-items:center;justify-content:center}.bear-wrap img{max-width:100%;max-height:100%;object-fit:contain}
-.status{margin-top:40px;display:flex;gap:10px;align-items:center}.status b{margin-left:auto}.progress{height:12px;border-radius:99px;background:#eee8df;overflow:hidden;margin-top:9px}.progress i{display:block;height:100%;background:var(--blue);width:0}
-.notice{background:#fff8e7;border-color:#ead9a8}.notice strong{display:block;margin-bottom:5px}
-h2{font-size:17px;margin:0 0 11px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-button,.filelabel,input,select{font:inherit}button,.filelabel{border:0;border-radius:14px;padding:12px 14px;background:var(--blue2);color:var(--ink);font-weight:700;cursor:pointer;text-align:center}.primary{background:var(--blue)}.secondary{background:#eee8df}.danger{background:#f8dddd}
-.filelabel{display:block}.filelabel input{display:none}
-.row{display:flex;gap:8px;align-items:center}.row>*{min-width:0}input,select{width:100%;padding:11px;border:1px solid var(--greige);border-radius:12px;background:white;color:var(--ink)}
-.list{display:grid;gap:9px}.tx{border:1px solid #e5ded4;border-radius:16px;padding:12px;background:white}.tx-top{display:flex;gap:8px;justify-content:space-between}.tx-name{font-weight:700}.tx-amount{font-weight:800;white-space:nowrap}.tx-date{font-size:12px;color:var(--muted);margin-top:3px}.tx-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}
-.pill{font-size:12px;background:var(--blue2);padding:4px 8px;border-radius:99px}.empty{text-align:center;color:var(--muted);padding:22px 4px}
-.cat-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.cat{display:flex;align-items:center;gap:5px;background:#f0ebe4;border-radius:99px;padding:6px 9px;font-size:13px}.cat button{padding:0;background:none;font-weight:400}
-.footer{position:fixed;bottom:0;left:0;right:0;background:rgba(247,243,236,.94);backdrop-filter:blur(10px);padding:10px max(14px,env(safe-area-inset-right)) calc(10px + env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left));border-top:1px solid var(--greige)}.footer-inner{max-width:692px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:9px}
-small{color:var(--muted);line-height:1.45}.hidden{display:none!important}
-@media(max-width:480px){.hero-copy{padding-right:112px}.bear-wrap{width:100px;right:10px}.grid{grid-template-columns:1fr}.big{font-size:31px}}
-@media print{body{background:white}.app{max-width:none;padding:0}.footer,.import-card,.category-card,.notice{display:none}.card{box-shadow:none}.tx-actions{display:none}}
-</style>
-</head>
-<body>
-<div class="app">
+:root{--ivory:#f7f3ec;--paper:#fffdfa;--greige:#ddd5ca;--ink:#514b45;--muted:#8c837a;--blue:#9fdde3;--blue2:#dff3f3}
+*{box-sizing:border-box}body{margin:0;background:var(--ivory);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif}.app{max-width:720px;margin:auto;padding:18px 14px 110px}.top{text-align:center;padding:8px 4px 14px}.top h1{font-size:25px;margin:0}.top p{margin:5px 0 0;color:var(--muted);font-size:13px}.card{background:var(--paper);border:1px solid var(--greige);border-radius:20px;padding:16px;margin-bottom:13px}.hero{position:relative;min-height:168px}.label{font-size:13px;color:var(--muted)}.big{font-size:34px;font-weight:800}.bear{position:absolute;right:14px;top:12px;width:105px;height:82px;object-fit:contain}.status{margin-top:40px;display:flex;gap:10px;align-items:center}.status b{margin-left:auto}.progress{height:12px;border-radius:99px;background:#eee8df;overflow:hidden;margin-top:9px}.progress i{display:block;height:100%;background:var(--blue)}.notice{background:#fff8e7;border-color:#ead9a8}.notice strong{display:block;margin-bottom:5px}h2{font-size:17px;margin:0 0 11px}button,.filelabel,input,select{font:inherit}button,.filelabel{border:0;border-radius:14px;padding:12px 14px;background:var(--blue2);color:var(--ink);font-weight:700;text-align:center}.primary{background:var(--blue)}.secondary{background:#eee8df}.filelabel{display:block}.filelabel input{display:none}.row{display:flex;gap:8px;align-items:center}input,select{width:100%;padding:11px;border:1px solid var(--greige);border-radius:12px;background:white}.list{display:grid;gap:9px}.tx{border:1px solid #e5ded4;border-radius:16px;padding:12px;background:white}.tx-top{display:flex;gap:8px;justify-content:space-between}.tx-name{font-weight:700}.tx-amount{font-weight:800;white-space:nowrap}.tx-date{font-size:12px;color:var(--muted)}.tx-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}.empty{text-align:center;color:var(--muted);padding:22px}.cat-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.cat{background:#f0ebe4;border-radius:99px;padding:6px 9px;font-size:13px}.cat button{padding:0;background:none}.footer{position:fixed;bottom:0;left:0;right:0;background:#f7f3ecf0;padding:10px 14px calc(10px + env(safe-area-inset-bottom));border-top:1px solid var(--greige)}.footer-inner{max-width:692px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:9px}small{color:var(--muted);line-height:1.45}@media print{.footer,.import-card,.category-card,.notice{display:none}.app{padding:0}.tx-actions{display:none}}
+</style></head>
+<body><div class="app">
 <header class="top"><h1>精算ノート♡</h1><p>カード明細を、わたし用・家に請求に仕分け</p></header>
-
-<section class="card hero">
-  <div class="hero-copy"><div class="label">カード利用額</div><div class="big" id="total">¥0</div></div>
-  <div class="bear-wrap"><img src="bear.png" alt="水色のクマ" onerror="this.style.display='none'"></div>
-  <div class="status"><span class="label">分類済み</span><b id="classified">0 / 0件</b><span id="pct">0%</span></div>
-  <div class="progress"><i id="bar"></i></div>
-</section>
-
-<section class="card notice"><strong>🔒 明細はこのiPhoneの中だけ</strong><small>このHTMLにはカード明細を入れていません。読み込んだ内容と分類結果は、このブラウザのローカル保存領域にだけ保存されます。GitHubへ自動送信する処理はありません。</small></section>
-
-<section class="card import-card">
-<h2>明細を読み込む</h2>
-<small>楽天カードの利用明細PDFを選択。PDFから利用日・利用先・金額を読み取ります。読み取った明細はGitHubには保存されません。</small>
-<div style="height:10px"></div>
-<label class="filelabel primary">PDFを選ぶ<input id="pdfFile" type="file" accept="application/pdf,.pdf"></label>
-<div style="height:8px"></div>
-<button class="secondary" id="clear" style="width:100%">この端末の明細をすべて消す</button>
-</section>
-
-<section class="card">
-<h2>明細</h2>
-<div class="row" style="margin-bottom:10px"><select id="filter"><option value="all">すべて</option><option value="unclassified">未分類だけ</option><option value="home">家に請求だけ</option><option value="mine">わたし用だけ</option></select></div>
-<div id="list" class="list"></div>
-</section>
-
-<section class="card category-card">
-<h2>「家に請求」のカテゴリ</h2>
-<div class="row"><input id="newcat" placeholder="例：子ども用品"><button id="addcat">追加</button></div>
-<div id="cats" class="cat-list"></div>
-</section>
-</div>
-
-<div class="footer"><div class="footer-inner"><button id="pdf" class="secondary">PDFにする</button><button id="save" class="primary">保存</button></div></div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs" type="module"></script>
+<section class="card hero"><div class="label">カード利用額</div><div class="big" id="total">¥0</div><img class="bear" src="bear.png" alt="水色のクマ"><div class="status"><span class="label">分類済み</span><b id="classified">0 / 0件</b><span id="pct">0%</span></div><div class="progress"><i id="bar"></i></div></section>
+<section class="card notice"><strong>🔒 明細はこのiPhoneの中だけ</strong><small>読み込んだ内容と分類結果は、このブラウザ内に保存されます。</small></section>
+<section class="card import-card"><h2>明細を読み込む</h2><small>楽天カードの利用明細PDFを選択してください。</small><div style="height:10px"></div><label class="filelabel primary">PDFを選ぶ<input id="pdfFile" type="file" accept="application/pdf,.pdf"></label><div style="height:8px"></div><button class="secondary" id="clear" style="width:100%">この端末の明細をすべて消す</button></section>
+<section class="card"><h2>明細</h2><select id="filter"><option value="all">すべて</option><option value="unclassified">未分類だけ</option><option value="home">家に請求だけ</option><option value="mine">わたし用だけ</option></select><div style="height:10px"></div><div id="list" class="list"></div></section>
+<section class="card category-card"><h2>「家に請求」のカテゴリ</h2><div class="row"><input id="newcat" placeholder="例：子ども用品"><button id="addcat">追加</button></div><div id="cats" class="cat-list"></div></section>
+</div><div class="footer"><div class="footer-inner"><button id="pdf" class="secondary">PDFにする</button><button id="save" class="primary">保存</button></div></div>
 <script type="module">
 import * as pdfjsLib from "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs";
 pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs";
-const KEY='seisan-note-v2';
-const DEFAULT_CATS=['食費','日用品','子ども','医療','交通','その他'];
-let state={items:[],cats:[...DEFAULT_CATS]};
-try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&Array.isArray(s.items))state={items:s.items,cats:Array.isArray(s.cats)&&s.cats.length?s.cats:[...DEFAULT_CATS]}}catch(e){}
-const yen=n=>'¥'+Math.round(Number(n)||0).toLocaleString('ja-JP');
-function persist(){localStorage.setItem(KEY,JSON.stringify(state))}
-function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function render(){
- const total=state.items.reduce((a,x)=>a+(Number(x.amount)||0),0), done=state.items.filter(x=>x.type).length, pct=state.items.length?Math.round(done/state.items.length*100):0;
- document.querySelector('#total').textContent=yen(total);document.querySelector('#classified').textContent=`${done} / ${state.items.length}件`;document.querySelector('#pct').textContent=pct+'%';document.querySelector('#bar').style.width=pct+'%';
- const f=document.querySelector('#filter').value;
- const arr=state.items.filter(x=>f==='all'||(f==='unclassified'&&!x.type)||x.type===f);
- document.querySelector('#list').innerHTML=arr.length?arr.map(x=>`<div class="tx">
- <div class="tx-top"><div><div class="tx-name">${esc(x.name)}</div><div class="tx-date">${esc(x.date)}</div></div><div class="tx-amount">${yen(x.amount)}</div></div>
- <div class="tx-actions"><button onclick="setType('${x.id}','mine')">わたし用${x.type==='mine'?' ✓':''}</button><button onclick="setType('${x.id}','home')">家に請求${x.type==='home'?' ✓':''}</button></div>
- ${x.type==='home'?`<div style="margin-top:7px"><select onchange="setCat('${x.id}',this.value)"><option value="">カテゴリ未選択</option>${state.cats.map(c=>`<option ${x.cat===c?'selected':''}>${esc(c)}</option>`).join('')}</select></div>`:''}
- </div>`).join(''):'<div class="empty">表示する明細がありません</div>';
- document.querySelector('#cats').innerHTML=state.cats.map(c=>`<span class="cat">${esc(c)} <button onclick="delCat('${encodeURIComponent(c)}')" aria-label="削除">×</button></span>`).join('');
-}
-window.setType=(id,t)=>{let x=state.items.find(x=>x.id===id);if(x){x.type=x.type===t?'':t;if(t!=='home')x.cat='';persist();render()}};
-window.setCat=(id,c)=>{let x=state.items.find(x=>x.id===id);if(x){x.cat=c;persist()}};
-window.delCat=e=>{const c=decodeURIComponent(e);if(confirm(`「${c}」を削除する？`)){state.cats=state.cats.filter(x=>x!==c);state.items.forEach(x=>{if(x.cat===c)x.cat=''});persist();render()}};
-document.querySelector('#addcat').onclick=()=>{const i=document.querySelector('#newcat'),c=i.value.trim();if(c&&!state.cats.includes(c)){state.cats.push(c);i.value='';persist();render()}};
-document.querySelector('#filter').onchange=render;
-document.querySelector('#save').onclick=()=>{persist();alert('このiPhoneに保存しました♡')};
-document.querySelector('#pdf').onclick=()=>window.print();
-document.querySelector('#clear').onclick=()=>{if(confirm('このiPhoneに保存した明細と分類結果を全部消す？')){state.items=[];persist();render()}};
-
-function cleanText(s){return String(s||'').replace(/\u00a0/g,' ').replace(/[ \t]+/g,' ').trim()}
-function parseAmount(s){
-  const m=String(s||'').match(/(?:¥|￥)?\s*(-?[\d,]{2,})\s*円?/);
-  if(!m)return null;
-  const n=Number(m[1].replace(/,/g,''));
-  return Number.isFinite(n)?n:null;
-}
-function dateMatch(s){
-  const m=String(s||'').match(/(?:(\d{4})[\/年.-])?(\d{1,2})[\/月.-](\d{1,2})日?/);
-  if(!m)return null;
-  return `${m[1]?m[1]+'/':''}${m[2]}/${m[3]}`;
-}
-function looksNoise(s){
-  return /楽天カード|ご利用明細|お支払|請求|ページ|page|合計|小計|本人会員|カード番号|支払方法|回数|摘要/i.test(s);
-}
-function linesToItems(lines){
-  const out=[];
-  for(let i=0;i<lines.length;i++){
-    const line=cleanText(lines[i]);
-    const d=dateMatch(line);
-    if(!d)continue;
-
-    let block=line;
-    // PDFによって利用先と金額が次の行に分かれるため、最大2行先まで見る
-    for(let j=1;j<=2 && i+j<lines.length;j++){
-      const nx=cleanText(lines[i+j]);
-      if(dateMatch(nx))break;
-      block+=' '+nx;
-      if(parseAmount(nx)!==null)break;
-    }
-    const amount=parseAmount(block);
-    if(amount===null || amount===0)continue;
-
-    let name=block
-      .replace(/(?:(\d{4})[\/年.-])?\d{1,2}[\/月.-]\d{1,2}日?/,' ')
-      .replace(/(?:¥|￥)?\s*-?[\d,]{2,}\s*円?/g,' ')
-      .replace(/\b(?:1回|一括|分割|リボ)\b/g,' ')
-      .replace(/\s+/g,' ').trim();
-
-    if(!name || looksNoise(name)) {
-      const candidates=[lines[i+1],lines[i-1]].map(cleanText).filter(x=>x&&!looksNoise(x)&&!dateMatch(x)&&parseAmount(x)===null);
-      name=candidates[0]||'利用明細';
-    }
-    const key=[d,name,amount,out.length].join('|');
-    out.push({id:(crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+out.length),key,date:d,name,amount,type:'',cat:''});
-  }
-  return out;
-}
-async function extractPdf(file){
-  const data=new Uint8Array(await file.arrayBuffer());
-  const pdf=await pdfjsLib.getDocument({data}).promise;
-  const lines=[];
-  for(let p=1;p<=pdf.numPages;p++){
-    const page=await pdf.getPage(p);
-    const content=await page.getTextContent();
-    // y座標ごとにまとめ、左→右に並べて「行」を復元
-    const groups=new Map();
-    for(const it of content.items){
-      if(!it.str)continue;
-      const y=Math.round(it.transform[5]/3)*3;
-      if(!groups.has(y))groups.set(y,[]);
-      groups.get(y).push({x:it.transform[4],s:it.str});
-    }
-    [...groups.entries()].sort((a,b)=>b[0]-a[0]).forEach(([,parts])=>{
-      lines.push(parts.sort((a,b)=>a.x-b.x).map(x=>x.s).join(' '));
-    });
-  }
-  return lines;
-}
-document.querySelector('#pdfFile').onchange=async e=>{
-  const file=e.target.files[0]; if(!file)return;
-  try{
-    const lines=await extractPdf(file);
-    const items=linesToItems(lines);
-    if(!items.length){
-      alert('明細を見つけられませんでした。PDFの形式を確認して調整できます。');
-      return;
-    }
-    // 同じPDFを再読込したとき、既存の分類をできるだけ引き継ぐ
-    const old=state.items;
-    for(const n of items){
-      const prev=old.find(x=>x.date===n.date && x.name===n.name && Number(x.amount)===Number(n.amount));
-      if(prev){n.type=prev.type||'';n.cat=prev.cat||'';}
-    }
-    state.items=items;
-    persist();render();
-    alert(`${items.length}件読み込みました♡\n明細はこのiPhone内に保存されます。`);
-  }catch(err){
-    console.error(err);
-    alert('PDFを読み込めませんでした。別形式のPDFなら調整できます。');
-  }
-};
-render();
-
-</script>
-</body></html>
+const KEY='seisan-note-v2',CATS=['食費','日用品','子ども','医療','交通','その他'];let state={items:[],cats:[...CATS]};
+try{let s=JSON.parse(localStorage.getItem(KEY));if(s&&Array.isArray(s.items))state={items:s.items,cats:s.cats||[...CATS]}}catch(e){}
+const q=s=>document.querySelector(s),yen=n=>'¥'+Math.round(+n||0).toLocaleString('ja-JP'),esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+function render(){let total=state.items.reduce((a,x)=>a+(+x.amount||0),0),done=state.items.filter(x=>x.type).length,pct=state.items.length?Math.round(done/state.items.length*100):0;q('#total').textContent=yen(total);q('#classified').textContent=`${done} / ${state.items.length}件`;q('#pct').textContent=pct+'%';q('#bar').style.width=pct+'%';let f=q('#filter').value,a=state.items.filter(x=>f==='all'||(f==='unclassified'&&!x.type)||x.type===f);q('#list').innerHTML=a.length?a.map(x=>`<div class="tx"><div class="tx-top"><div><div class="tx-name">${esc(x.name)}</div><div class="tx-date">${esc(x.date)}</div></div><div class="tx-amount">${yen(x.amount)}</div></div><div class="tx-actions"><button onclick="setType('${x.id}','mine')">わたし用${x.type==='mine'?' ✓':''}</button><button onclick="setType('${x.id}','home')">家に請求${x.type==='home'?' ✓':''}</button></div>${x.type==='home'?`<select onchange="setCat('${x.id}',this.value)" style="margin-top:7px"><option value="">カテゴリ未選択</option>${state.cats.map(c=>`<option ${x.cat===c?'selected':''}>${esc(c)}</option>`).join('')}</select>`:''}</div>`).join(''):'<div class="empty">表示する明細がありません</div>';q('#cats').innerHTML=state.cats.map(c=>`<span class="cat">${esc(c)} <button onclick="delCat('${encodeURIComponent(c)}')">×</button></span>`).join('')}
+window.setType=(id,t)=>{let x=state.items.find(x=>x.id===id);if(x){x.type=x.type===t?'':t;if(t!=='home')x.cat='';save();render()}};window.setCat=(id,c)=>{let x=state.items.find(x=>x.id===id);if(x){x.cat=c;save()}};window.delCat=e=>{let c=decodeURIComponent(e);state.cats=state.cats.filter(x=>x!==c);save();render()};
+q('#addcat').onclick=()=>{let i=q('#newcat'),c=i.value.trim();if(c&&!state.cats.includes(c)){state.cats.push(c);i.value='';save();render()}};q('#filter').onchange=render;q('#save').onclick=()=>{save();alert('このiPhoneに保存しました♡')};q('#pdf').onclick=()=>window.print();q('#clear').onclick=()=>{if(confirm('明細を全部消す？')){state.items=[];save();render()}};
+const clean=s=>String(s||'').replace(/ /g,' ').replace(/[ 	]+/g,' ').trim();
+const dm=s=>{let m=String(s).match(/(?:(\d{4})[\/年.-])?(\d{1,2})[\/月.-](\d{1,2})日?/);return m?`${m[1]?m[1]+'/':''}${m[2]}/${m[3]}`:null};
+const nums=s=>[...String(s).matchAll(/(?:¥|￥)?\s*(-?[\d,]+)\s*円?/g)].map(m=>+m[1].replace(/,/g,'')).filter(Number.isFinite);
+function parse(lines){let out=[];for(let i=0;i<lines.length;i++){let line=clean(lines[i]),d=dm(line);if(!d)continue;let block=line;for(let j=1;j<=3&&i+j<lines.length;j++){let nx=clean(lines[i+j]);if(dm(nx))break;block+=' '+nx}let ns=nums(block);if(!ns.length)continue;let amount=ns[ns.length-1];if(!amount)continue;let name=block.replace(/(?:(\d{4})[\/年.-])?\d{1,2}[\/月.-]\d{1,2}日?/,' ').replace(/(?:¥|￥)?\s*-?[\d,]+\s*円?/g,' ').replace(/(?:1回|一括|分割|リボ)/g,' ').replace(/\s+/g,' ').trim();if(!name||/楽天カード|ご利用明細|合計|小計|カード番号/.test(name))name='利用明細';if(/取消|キャンセル/.test(block)&&amount>0)amount=-amount;out.push({id:crypto.randomUUID(),date:d,name,amount,type:'',cat:''})}return out}
+async function extract(file){let data=new Uint8Array(await file.arrayBuffer()),pdf=await pdfjsLib.getDocument({data}).promise,lines=[];for(let p=1;p<=pdf.numPages;p++){let page=await pdf.getPage(p),ct=await page.getTextContent(),g=new Map();for(let it of ct.items){if(!it.str)continue;let y=Math.round(it.transform[5]/2)*2;if(!g.has(y))g.set(y,[]);g.get(y).push({x:it.transform[4],s:it.str})}[...g.entries()].sort((a,b)=>b[0]-a[0]).forEach(([,parts])=>lines.push(parts.sort((a,b)=>a.x-b.x).map(x=>x.s).join(' ')))}return lines}
+q('#pdfFile').onchange=async e=>{let file=e.target.files[0];if(!file)return;try{let items=parse(await extract(file));if(!items.length){alert('明細を見つけられませんでした。');return}let old=state.items;for(let n of items){let p=old.find(x=>x.date===n.date&&x.name===n.name&&+x.amount===+n.amount);if(p){n.type=p.type||'';n.cat=p.cat||''}}state.items=items;save();render();alert(`${items.length}件読み込みました♡\n合計 ${yen(items.reduce((a,x)=>a+x.amount,0))}`)}catch(err){console.error(err);alert('PDFを読み込めませんでした。')}};render();
+</script></body></html>
